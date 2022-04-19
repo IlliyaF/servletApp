@@ -11,11 +11,9 @@ public class EmployeeRepository {
 
         Employee employee = new Employee();
 
-        employee.setName("Ivan");
-        employee.setEmail("ivan@i.ua");
-        employee.setCountry("Ukraine");
-        employee.setCompany("HrmSc");
-        employee.setPoint("");
+        employee.setModel("Slavuta");
+        employee.setColor("green");
+        employee.setDoors(4);
 
         save(employee);
     }
@@ -44,12 +42,10 @@ public class EmployeeRepository {
         int status = 0;
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into mentors(name,email,country, company, point) values (?,?,?,?,?)");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
-            ps.setString(3, employee.getCountry());
-            ps.setString(4, employee.getCompany());
-            ps.setString(5, employee.getPoint());
+            PreparedStatement ps = connection.prepareStatement("insert into cars(model,color,doors) values (?,?,?)");
+            ps.setString(1, employee.getModel());
+            ps.setString(2, employee.getColor());
+            ps.setInt(3, employee.getDoors());
 
 
             status = ps.executeUpdate();
@@ -67,13 +63,11 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update mentors set name=?,email=?,country=?,company=?,point=?  where id=?");
-            ps.setString(1, employee.getName());
-            ps.setString(2, employee.getEmail());
-            ps.setString(3, employee.getCountry());
-            ps.setInt(4, employee.getId());
-            ps.setString(5, employee.getCompany());
-            ps.setString(6, employee.getPoint());
+            PreparedStatement ps = connection.prepareStatement("update cars set model=?,color=?,doors=? where idcar=?");
+            ps.setString(1, employee.getModel());
+            ps.setString(2, employee.getColor());
+            ps.setInt(3, employee.getDoors());
+            ps.setInt(4, employee.getIdcar());
 
             status = ps.executeUpdate();
             connection.close();
@@ -84,14 +78,14 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int delete(int id) {
+    public static int delete(int idcar) {
 
         int status = 0;
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from mentors where id=?");
-            ps.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement("delete from cars where idcar=?");
+            ps.setInt(1, idcar);
             status = ps.executeUpdate();
 
             connection.close();
@@ -102,22 +96,21 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static Employee getEmployeeById(int id) {
+    public static Employee getEmployeeById(int idcar) {
 
         Employee employee = new Employee();
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from mentors where id=?");
-            ps.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement("select * from cars where idcar=?");
+            ps.setInt(1, idcar);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
-                employee.setCountry(rs.getString(4));
-                employee.setCompany(rs.getString(5));
-                employee.setPoint(rs.getString(6));
+                employee.setIdcar(rs.getInt(1));
+                employee.setModel(rs.getString(2));
+                employee.setColor(rs.getString(3));
+                employee.setDoors(rs.getInt(4));
+
             }
             connection.close();
 
@@ -133,19 +126,17 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from mentors");
+            PreparedStatement ps = connection.prepareStatement("select * from cars");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
 
                 Employee employee = new Employee();
 
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString(2));
-                employee.setEmail(rs.getString(3));
-                employee.setCountry(rs.getString(4));
-                employee.setCompany(rs.getString(5));
-                employee.setPoint(rs.getString(6));
+                employee.setIdcar(rs.getInt(1));
+                employee.setModel(rs.getString(2));
+                employee.setColor(rs.getString(3));
+                employee.setDoors(rs.getInt(4));
 
 
                 listEmployees.add(employee);

@@ -17,21 +17,21 @@ public class PutServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
-        String sid = request.getParameter("id");
-        int id = Integer.parseInt(sid);
+        String sid = request.getParameter("idcar");
+        Integer idcar = Integer.parseInt(sid);
 
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String company = request.getParameter("company");
-        String point = request.getParameter("point");
+        String model = request.getParameter("model");
+        String color = request.getParameter("color");
+        String d = request.getParameter("doors");
+        int doors = Integer.parseInt(d);
+
 
         Employee employee = new Employee();
-        employee.setId(id);
-        employee.setName(name);
-        employee.setEmail(email);
-        employee.setCompany(company);
-        employee.setPoint(point);
-        employee.setCountry(request.getParameter("country"));
+        employee.setIdcar(idcar);
+        employee.setModel(model);
+        employee.setDoors(doors);
+        employee.setColor(color);
+
 
         int status = EmployeeRepository.update(employee);
 

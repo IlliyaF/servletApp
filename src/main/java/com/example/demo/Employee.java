@@ -2,70 +2,51 @@ package com.example.demo;
 
 public class Employee {
 
-    private Integer id;
-    private String name;
-    private String country;
-    private String email;
-    private String company;
-    private String point;
+    private Integer idcar;
+    private String model;
+    private String color;
+    private int doors;
 
-    public String getCompany() {
-        return company;
+
+    public Integer getIdcar() {
+        return idcar;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setIdcar(Integer idcar) {
+        this.idcar = idcar;
     }
 
-    public String getPoint() {
-        return point;
+    public String getModel() {
+        return model;
     }
 
-    public void setPoint(String point) {
-        this.point = point;
+    public void setModel(String model) {
+        this.model = model;
     }
 
-    public int getId() {
-        return id;
+    public String getColor() {
+        return color;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setColor(String color) {
+        this.color = color;
     }
 
-    public String getName() {
-        return name;
+    public int getDoors() {
+        return doors;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setDoors(int doors) {
+        this.doors = doors;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                ", email='" + email + '\'' +
-                ", company='" + company + '\'' +
-                ", point='" + point + '\'' +
+                "idcar=" + idcar +
+                ", model='" + model + '\'' +
+                ", color='" + color + '\'' +
+                ", doors=" + doors +
                 '}';
     }
 }
