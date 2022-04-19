@@ -41,7 +41,7 @@ public class EmployeeRepository {
         int status = 0;
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into users(name,email,country) values (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("insert into mentors(name,email,country) values (?,?,?)");
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getEmail());
             ps.setString(3, employee.getCountry());
@@ -61,7 +61,7 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update users set name=?,email=?,country=? where id=?");
+            PreparedStatement ps = connection.prepareStatement("update mentors set name=?,email=?,country=? where id=?");
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getEmail());
             ps.setString(3, employee.getCountry());
@@ -82,7 +82,7 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from users where id=?");
+            PreparedStatement ps = connection.prepareStatement("delete from mentors where id=?");
             ps.setInt(1, id);
             status = ps.executeUpdate();
 
@@ -100,7 +100,7 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users where id=?");
+            PreparedStatement ps = connection.prepareStatement("select * from mentors where id=?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -123,7 +123,7 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from users");
+            PreparedStatement ps = connection.prepareStatement("select * from mentors");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
