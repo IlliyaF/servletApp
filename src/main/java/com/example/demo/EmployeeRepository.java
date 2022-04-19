@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         getConnection();
 
         Employee employee = new Employee();
@@ -15,14 +15,14 @@ public class EmployeeRepository {
         employee.setEmail(" ");
         employee.setCountry(" ");
         save(employee);
-    }*/
+    }
 
     public static Connection getConnection() {
 
         Connection connection = null;
         String url = "jdbc:postgresql://localhost:5432/employee";
         String user = "postgres";
-        String password = "postgres";
+        String password = "gavgav37";
 
         try {
             connection = DriverManager.getConnection(url, user, password);

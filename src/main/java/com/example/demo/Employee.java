@@ -2,7 +2,7 @@ package com.example.demo;
 
 public class Employee {
 
-    private int id;
+    private Integer id;
     private String name;
     private String country;
     private String email;
