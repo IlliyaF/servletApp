@@ -6,6 +6,24 @@ public class Employee {
     private String name;
     private String country;
     private String email;
+    private String company;
+    private String point;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPoint() {
+        return point;
+    }
+
+    public void setPoint(String point) {
+        this.point = point;
+    }
 
     public int getId() {
         return id;
@@ -46,6 +64,8 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", country='" + country + '\'' +
                 ", email='" + email + '\'' +
+                ", company='" + company + '\'' +
+                ", point='" + point + '\'' +
                 '}';
     }
 }
