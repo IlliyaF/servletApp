@@ -27,7 +27,7 @@ public class PutServlet extends HttpServlet {
 
 
         Employee employee = new Employee();
-        employee.setIdcar(idcar);
+        employee.setIdcars(idcar);
         employee.setModel(model);
         employee.setDoors(doors);
         employee.setColor(color);

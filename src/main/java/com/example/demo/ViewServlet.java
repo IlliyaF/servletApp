@@ -13,7 +13,7 @@ import java.util.List;
 public class ViewServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String e = "Problems with Services!";
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -23,5 +23,8 @@ public class ViewServlet extends HttpServlet {
             out.print(employee);
         }
         out.close();
+
+        throw new ServletException(e);
+
     }
 }

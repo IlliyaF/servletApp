@@ -8,11 +8,11 @@ public class Employee {
     private int doors;
 
 
-    public Integer getIdcar() {
+    public Integer getIdcars() {
         return idcar;
     }
 
-    public void setIdcar(Integer idcar) {
+    public void setIdcars(Integer idcar) {
         this.idcar = idcar;
     }
 

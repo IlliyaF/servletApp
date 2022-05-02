@@ -1,21 +1,26 @@
 package com.example.demo;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class EmployeeRepository {
 
-    public static void main(String[] args) {
-        getConnection();
+    public static void main(String[] args) throws SQLException {
 
-        Employee employee = new Employee();
+        Connection connection = EmployeeRepository.getConnection();
+        PreparedStatement ps = connection.prepareStatement("select * from cars");
+        ResultSet resultSet = ps.executeQuery();
+        ResultSetMetaData rsData = resultSet.getMetaData();
+        System.out.println(rsData.getColumnCount() + "; ");
+        ArrayList <String> nms = new ArrayList<>();
+        for (int i=1; i<=rsData.getColumnCount(); i++) {
+            nms.add(rsData.getColumnName(i));
+            System.out.println("ColumnName (" + ") = " + rsData.getColumnName(i));
+        }
 
-        employee.setModel("Slavuta");
-        employee.setColor("green");
-        employee.setDoors(4);
 
-        save(employee);
     }
 
     public static Connection getConnection() {
@@ -63,11 +68,11 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update cars set model=?,color=?,doors=? where idcar=?");
+            PreparedStatement ps = connection.prepareStatement("update cars set model=?,color=?,doors=? where idcars=?");
             ps.setString(1, employee.getModel());
             ps.setString(2, employee.getColor());
             ps.setInt(3, employee.getDoors());
-            ps.setInt(4, employee.getIdcar());
+            ps.setInt(4, employee.getIdcars());
 
             status = ps.executeUpdate();
             connection.close();
@@ -78,14 +83,14 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static int delete(int idcar) {
+    public static int delete(int idcars) {
 
         int status = 0;
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("delete from cars where idcar=?");
-            ps.setInt(1, idcar);
+            PreparedStatement ps = connection.prepareStatement("delete from cars where idcars=?");
+            ps.setInt(1, idcars);
             status = ps.executeUpdate();
 
             connection.close();
@@ -96,17 +101,17 @@ public class EmployeeRepository {
         return status;
     }
 
-    public static Employee getEmployeeById(int idcar) {
+    public static Employee getEmployeeById(int idcars) {
 
         Employee employee = new Employee();
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("select * from cars where idcar=?");
-            ps.setInt(1, idcar);
+            PreparedStatement ps = connection.prepareStatement("select * from cars where idcars=?");
+            ps.setInt(1, idcars);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                employee.setIdcar(rs.getInt(1));
+                employee.setIdcars(rs.getInt(1));
                 employee.setModel(rs.getString(2));
                 employee.setColor(rs.getString(3));
                 employee.setDoors(rs.getInt(4));
@@ -133,7 +138,7 @@ public class EmployeeRepository {
 
                 Employee employee = new Employee();
 
-                employee.setIdcar(rs.getInt(1));
+                employee.setIdcars(rs.getInt(1));
                 employee.setModel(rs.getString(2));
                 employee.setColor(rs.getString(3));
                 employee.setDoors(rs.getInt(4));
@@ -148,4 +153,50 @@ public class EmployeeRepository {
         }
         return listEmployees;
     }
+    //My auxiliary methods:
+    public static boolean chkReq(HttpServletRequest req, PrintWriter out) throws SQLException {
+
+
+        Enumeration <String> parReq = req.getParameterNames();
+
+        ArrayList <String> nms = new ArrayList<>(); //Array for Field Names in the request
+
+        while (parReq.hasMoreElements()){
+            nms.add(parReq.nextElement());
+           }
+
+        if(chkFieldName(nms)) {
+            return true;
+        }
+
+    return false;
 }
+    public static boolean chkFieldName(ArrayList<String> n) throws SQLException {
+        int quantityCoincidences = 0;
+        for (int i = 0; i < n.size(); i++) {
+            if(EmployeeRepository.verifyNames(n.get(i))) {
+                quantityCoincidences++;
+            }
+            }
+        if (quantityCoincidences == n.size()){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean verifyNames(String fieldName) throws SQLException {
+        Connection connection = getConnection();
+        PreparedStatement ps = connection.prepareStatement("select * from cars");
+        ResultSet resultSet = ps.executeQuery();
+        ResultSetMetaData rsData = resultSet.getMetaData();
+
+        for (int i=1; i<=rsData.getColumnCount();i++){
+
+            if (Objects.equals(fieldName, rsData.getColumnName(i))) {
+                return true;
+            }
+        }
+    return false;
+    }
+}
+
